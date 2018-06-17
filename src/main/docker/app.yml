@@ -1,0 +1,19 @@
+version: '2'
+services:
+    gullycric-app:
+        image: gullycric
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://gullycric-mysql:3306/gullycric?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=gullycric-elasticsearch:9300
+        ports:
+            - 8080:8080
+    gullycric-mysql:
+        extends:
+            file: mysql.yml
+            service: gullycric-mysql
+    gullycric-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: gullycric-elasticsearch
